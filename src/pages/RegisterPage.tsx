@@ -47,7 +47,7 @@ class RegisterPage extends Component {
                                 inputName=""
                                 inputType="password"
                             />
-                            <LwsButton title={"Register Button"} width={"440px"} type={"submit"}/>
+                            <LwsButton title={"Register"} width={"440px"} type={"submit"}/>
                         </form>
                     </LwsFragment>
                 </div>
