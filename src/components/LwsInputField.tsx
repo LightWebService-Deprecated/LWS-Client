@@ -6,12 +6,15 @@ type InputFieldProps = {
     inputPlaceHolder?: string;
     inputName?: string;
     inputType?: string;
+    overrideableWidth?: string;
 }
 
 class LwsInputField extends Component<InputFieldProps> {
     render() {
         return (
-            <fieldset className="LwsFieldSet">
+            <fieldset className="LwsFieldSet" style={{
+                width: this.props.overrideableWidth
+            }}>
                 <label className="LwsInputLabel">{this.props.inputDescription}</label>
                 <input
                     className="LwsInput"

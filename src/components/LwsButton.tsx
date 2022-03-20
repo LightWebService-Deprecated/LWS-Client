@@ -4,6 +4,7 @@ import './LwsButton.css'
 type LwsButtonProps = {
     title: string;
     width?: string | undefined;
+    type?: "button" | "submit" | "reset" | undefined;
 }
 
 class LwsButton extends Component<LwsButtonProps> {
@@ -11,7 +12,7 @@ class LwsButton extends Component<LwsButtonProps> {
         return (
             <button className="LwsButton" style={{
                 width: this.props.width
-            }}>{this.props.title}</button>
+            }} type={this.props.type}>{this.props.title}</button>
         )
     }
 }

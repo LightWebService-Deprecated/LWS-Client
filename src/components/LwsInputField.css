@@ -4,6 +4,8 @@
     align-items: flex-start;
     padding: 2px 0px;
     border: none;
+    width: fit-content;
+    gap: 7px;
 }
 
 .LwsInputLabel {
