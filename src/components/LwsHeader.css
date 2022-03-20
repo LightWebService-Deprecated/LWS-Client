@@ -1,0 +1,17 @@
+.LwsHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 0 0 10px;
+
+    height: 60px;
+    width: 100%;
+}
+
+.LwsHeader-MainTitle {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    color: #6E3EBC;
+}
