@@ -1,0 +1,21 @@
+.LwsFieldSet {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2px 0px;
+    border: none;
+}
+
+.LwsInputLabel {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 12px;
+    color: #646464;
+}
+
+.LwsInput {
+    width: 100%;
+    height: 26px;
+    border: none;
+}
