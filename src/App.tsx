@@ -1,7 +1,9 @@
+import LwsButton from "./components/LwsButton";
+
 function App() {
-  return (
-    <div>Hello, World!</div>
-  );
+    return (
+        <LwsButton title="Hello, World Button!"/>
+    );
 }
 
 export default App;

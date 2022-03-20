@@ -1,0 +1,14 @@
+.LwsButton {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 7px 10px;
+    background: #C8C8FA;
+}
+
+.LwsButton:active {
+    background: #B4B4FA;
+}
