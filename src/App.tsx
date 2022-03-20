@@ -1,5 +1,6 @@
 import LwsButton from "./components/LwsButton";
 import LwsInputField from "./components/LwsInputField";
+import LwsFragment from "./components/LwsFragment";
 
 function App() {
     return (
@@ -11,6 +12,9 @@ function App() {
                 inputName="userEmail"
                 inputType="email"
             />
+            <LwsFragment>
+                <LwsButton title="Button inside Fragment"/>
+            </LwsFragment>
         </div>
     );
 }
