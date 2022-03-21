@@ -6,10 +6,11 @@ import LwsInputField from "../components/LwsInputField";
 import LwsButton from "../components/LwsButton";
 
 class RegisterPage extends Component {
+
     render() {
         return (
             <div className="EmptyPage">
-                <LwsHeader renderAccountInfo={true}/>
+                <LwsHeader renderAccountInfo={false}/>
                 <div className="ContentPageWithoutSidebar">
                     <LwsFragment>
                         <div style={{fontSize: '24px', fontWeight: '700'}}>Register</div>
