@@ -93,6 +93,8 @@ class LoginPage extends Component<any, LoginState> {
                             />
                             <LwsButton title={"Login"} width={"440px"} type={"submit"}/>
                         </form>
+                        <a href="/account/register" style={{textDecoration: "none", color: "inherit"}}>Not an user?
+                            Register Now!</a>
                     </LwsFragment>
                 </div>
             </div>
