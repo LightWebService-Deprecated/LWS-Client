@@ -14,9 +14,9 @@ class LwsHeader extends Component<HeaderProps> {
         let accountInfoRenderer;
         if (this.props.renderAccountInfo) {
             accountInfoRenderer = <LwsAccountInfo
-                accountName={this.props.accountName!}
-                accountRole={this.props.accountRole!}
-                accountFirstLetter={this.props.accountFirstLetter!}
+                accountName={this.props.accountName ?? ""}
+                accountRole={this.props.accountRole ?? ""}
+                accountFirstLetter={this.props.accountFirstLetter ?? ""}
             />
         }
 

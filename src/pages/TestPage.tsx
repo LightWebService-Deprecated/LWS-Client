@@ -3,6 +3,7 @@ import LwsHeader from "../components/LwsHeader";
 import LwsButton from "../components/LwsButton";
 import LwsInputField from "../components/LwsInputField";
 import LwsFragment from "../components/LwsFragment";
+import MainMenuItem from "../components/MainMenuItem";
 
 class TestPage extends Component {
     render() {
@@ -19,6 +20,9 @@ class TestPage extends Component {
                 <LwsFragment>
                     <LwsButton title="Button inside Fragment"/>
                 </LwsFragment>
+                <MainMenuItem iconClassName="bi bi-globe2" redirectionUrl=''>
+                    Create Ubuntu <br/> Instance
+                </MainMenuItem>
             </div>
         );
     }

@@ -1,0 +1,8 @@
+.IndexPage-MenuContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    gap: 55px;
+}

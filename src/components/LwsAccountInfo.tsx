@@ -16,7 +16,7 @@ class LwsAccountInfo extends Component<HeaderAccountInfo> {
                     <div className="AccountInfoContainer-Role">{this.props.accountRole}</div>
                 </div>
                 <div className="AccountInfoContainer-Icon">
-                    <div className="AccountInfoContainer-Icon-Text">K</div>
+                    <div className="AccountInfoContainer-Icon-Text">{this.props.accountFirstLetter}</div>
                 </div>
             </div>
         );

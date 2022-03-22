@@ -1,0 +1,20 @@
+.MainMenuItem-Container {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+.MainMenuItem-Text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
