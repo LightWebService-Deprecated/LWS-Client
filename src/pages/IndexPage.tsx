@@ -49,6 +49,10 @@ class IndexPage extends Component<any, IndexState> {
             } else {
                 await this.swal.fire("Unknown Error!", "Please contact admin if error persists.", "error");
             }
+            this.setState({
+                isRedirectionNeeded: true,
+                redirectionUrl: '/account/login'
+            });
             return;
         }
 
