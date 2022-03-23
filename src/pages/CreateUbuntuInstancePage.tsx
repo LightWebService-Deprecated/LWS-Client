@@ -1,26 +1,54 @@
-import {Component} from "react";
+import {Component, FormEvent} from "react";
 import {Navigate} from "react-router";
-import {AccountProjection, AccountService, ApiError, OpenAPI} from "../communication";
+import "./EmptyPage.css";
 import LwsHeader from "../components/LwsHeader";
 import LwsFragment from "../components/LwsFragment";
-import {AccessTokenService} from "../communication/AccessTokenService";
+import LwsInputField from "../components/LwsInputField";
+import LwsButton from "../components/LwsButton";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import MainMenuItem from "../components/MainMenuItem";
-import './IndexPage.css'
+import {AccessTokenService} from "../communication/AccessTokenService";
+import {AccountProjection, AccountService, ApiError, OpenAPI, UbuntuService} from "../communication";
 
-type IndexState = {
+type CreateUbuntuState = {
     isRedirectionNeeded?: boolean,
     redirectionUrl?: string,
     accountProjection?: AccountProjection
 }
 
-class IndexPage extends Component<any, IndexState> {
+class CreateUbuntuInstancePage extends Component<any, CreateUbuntuState> {
     swal = withReactContent(Swal);
 
     constructor(props: any) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.redirectToLogin = this.redirectToLogin.bind(this);
+    }
+
+    async handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        // Get Form Data as json object
+        let formData = new FormData(event.currentTarget);
+        let entries = Object.fromEntries(formData.entries());
+
+        let accessToken = AccessTokenService.getAccessToken();
+        if (accessToken == null) {
+            await this.redirectToLogin();
+            return;
+        }
+        // Set Header
+        OpenAPI.HEADERS = {"X-LWS-AUTH": accessToken}
+
+        try {
+            await UbuntuService.postUbuntu(entries);
+        } catch (error) {
+            await this.swal.fire("Error!", "Unknown error occurred! Please contact admin if error persists.", 'error');
+            return;
+        }
+
+        // Succeed!
+        await this.swal.fire("Success!", "Creating Ubuntu instance succeed!", 'success');
     }
 
     async componentDidMount() {
@@ -71,9 +99,10 @@ class IndexPage extends Component<any, IndexState> {
         });
     }
 
+
     render() {
         if (this.state?.isRedirectionNeeded === true) {
-            return <Navigate to={this.state.redirectionUrl ?? "/account/login"} replace={true}/>
+            return <Navigate to={this.state?.redirectionUrl ?? '/'} replace={true}/>
         }
 
         return (
@@ -86,24 +115,28 @@ class IndexPage extends Component<any, IndexState> {
                 />
                 <div className={"ContentPageWithoutSidebar"}>
                     <LwsFragment>
-                        <h2>Available Menu</h2>
-                        <div className="IndexPage-MenuContainer">
-                            <MainMenuItem
-                                iconClassName="bi bi-globe2"
-                                redirectionUrl='/instance/ubuntu'>
-                                Create Ubuntu<br/>Instance
-                            </MainMenuItem>
-                            <MainMenuItem
-                                iconClassName="bi bi-globe2"
-                                redirectionUrl=''>
-                                Create MongoDB<br/>Instance
-                            </MainMenuItem>
-                            <MainMenuItem
-                                iconClassName="bi bi-globe2"
-                                redirectionUrl=''>
-                                Create Redis<br/>Instance
-                            </MainMenuItem>
-                        </div>
+                        <h2>Create Ubuntu Instance</h2>
+                        <form style={{
+                            display: 'inherit',
+                            flexDirection: 'inherit',
+                            gap: 'inherit'
+                        }} onSubmit={this.handleSubmit}>
+                            <LwsInputField
+                                overrideableWidth={"500px"}
+                                inputDescription="Deployment Name"
+                                inputPlaceHolder="Enter Deployment Name"
+                                inputName="deploymentName"
+                                inputType="text"
+                            />
+                            <LwsInputField
+                                overrideableWidth={"500px"}
+                                inputDescription="SSH Override Port(between 30000 ~ 32767)"
+                                inputPlaceHolder="Overrideable SSH Port"
+                                inputName="sshOverridePort"
+                                inputType="text"
+                            />
+                            <LwsButton title={"Create Instance"} width={"500px"} type={"submit"}/>
+                        </form>
                     </LwsFragment>
                 </div>
             </div>
@@ -111,4 +144,4 @@ class IndexPage extends Component<any, IndexState> {
     }
 }
 
-export default IndexPage;
+export default CreateUbuntuInstancePage;
