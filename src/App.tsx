@@ -4,16 +4,18 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import IndexPage from "./pages/IndexPage";
 import CreateUbuntuInstancePage from "./pages/CreateUbuntuInstancePage";
+import {LwsAuthComponent} from "./components/LwsAuthComponent";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<IndexPage/>}/>
+                <Route path="/" element={<LwsAuthComponent><IndexPage/></LwsAuthComponent>}/>
                 <Route path="/example" element={<TestPage/>}/>
                 <Route path="/account/login" element={<LoginPage/>}/>
                 <Route path="/account/register" element={<RegisterPage/>}/>
-                <Route path="/instance/ubuntu" element={<CreateUbuntuInstancePage/>}/>
+                <Route path="/instance/ubuntu"
+                       element={<LwsAuthComponent><CreateUbuntuInstancePage/></LwsAuthComponent>}/>
             </Routes>
         </BrowserRouter>
     );

@@ -1,5 +1,4 @@
 import {Component, FormEvent} from "react";
-import {Navigate} from "react-router";
 import "./EmptyPage.css";
 import LwsHeader from "../components/LwsHeader";
 import LwsFragment from "../components/LwsFragment";
@@ -8,7 +7,7 @@ import LwsButton from "../components/LwsButton";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import {AccessTokenService} from "../communication/AccessTokenService";
-import {AccountProjection, AccountService, ApiError, OpenAPI, UbuntuService} from "../communication";
+import {AccountProjection, OpenAPI, UbuntuService} from "../communication";
 
 type CreateUbuntuState = {
     isRedirectionNeeded?: boolean,
@@ -22,7 +21,6 @@ class CreateUbuntuInstancePage extends Component<any, CreateUbuntuState> {
     constructor(props: any) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.redirectToLogin = this.redirectToLogin.bind(this);
     }
 
     async handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -32,11 +30,8 @@ class CreateUbuntuInstancePage extends Component<any, CreateUbuntuState> {
         let formData = new FormData(event.currentTarget);
         let entries = Object.fromEntries(formData.entries());
 
-        let accessToken = AccessTokenService.getAccessToken();
-        if (accessToken == null) {
-            await this.redirectToLogin();
-            return;
-        }
+        let accessToken = AccessTokenService.getAccessToken()!;
+
         // Set Header
         OpenAPI.HEADERS = {"X-LWS-AUTH": accessToken}
 
@@ -51,67 +46,19 @@ class CreateUbuntuInstancePage extends Component<any, CreateUbuntuState> {
         await this.swal.fire("Success!", "Creating Ubuntu instance succeed!", 'success');
     }
 
-    async componentDidMount() {
-        let accessToken = AccessTokenService.getAccessToken();
-        if (accessToken == null) {
-            await this.redirectToLogin();
-            return;
-        }
-        // Set Header
-        OpenAPI.HEADERS = {"X-LWS-AUTH": accessToken}
-
-        // Do Request
-        let accountResponse: AccountProjection;
-        try {
-            accountResponse = await AccountService.getAccount();
-        } catch (error) {
-            if (error instanceof ApiError) {
-                switch ((error as ApiError).status) {
-                    case 401:
-                    case 404:
-                        await this.swal.fire("Error!", "Unauthorized! Please login.", "error");
-                        break;
-                    default:
-                        await this.swal.fire("Unknown Error!", "Please contact admin if error persists.", "error");
-                }
-            } else {
-                await this.swal.fire("Unknown Error!", "Please contact admin if error persists.", "error");
-            }
-            this.setState({
-                isRedirectionNeeded: true,
-                redirectionUrl: '/account/login'
-            });
-            return;
-        }
-
-        // Handle if succeeds.
-        this.setState({
-            isRedirectionNeeded: false,
-            accountProjection: accountResponse
-        });
-    }
-
-    async redirectToLogin() {
-        await this.swal.fire("Error!", "Unauthorized! Please login.", "error");
-        this.setState({
-            isRedirectionNeeded: true,
-            redirectionUrl: "/account/login"
-        });
-    }
-
-
     render() {
-        if (this.state?.isRedirectionNeeded === true) {
-            return <Navigate to={this.state?.redirectionUrl ?? '/'} replace={true}/>
+        let accountObject = AccessTokenService.getAccountProjection();
+        if (accountObject == null) {
+            return (<></>);
         }
 
         return (
             <div className={"EmptyPage"}>
                 <LwsHeader
                     renderAccountInfo={true}
-                    accountRole={this.state?.accountProjection?.accountRole ?? ""}
-                    accountName={this.state?.accountProjection?.userNickName ?? ""}
-                    accountFirstLetter={this.state?.accountProjection?.firstLetter ?? ""}
+                    accountRole={accountObject.accountRole}
+                    accountName={accountObject.userNickName}
+                    accountFirstLetter={accountObject.firstLetter}
                 />
                 <div className={"ContentPageWithoutSidebar"}>
                     <LwsFragment>
