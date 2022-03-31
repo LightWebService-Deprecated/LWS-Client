@@ -21,6 +21,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "pretty": "prettier --write \"./**/*.{js,jsx,json,ts,tsx}\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -45,8 +46,6 @@
     ]
   },
   "devDependencies": {
-    "openapi-typescript": "^5.2.0",
-    "openapi-typescript-codegen": "^0.20.1",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "eslint": "^8.12.0",
@@ -62,6 +61,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "openapi-typescript": "^5.2.0",
+    "openapi-typescript-codegen": "^0.20.1",
     "prettier": "^2.6.1",
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.1"
