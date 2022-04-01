@@ -2,6 +2,7 @@ import { AccountProjection } from './models/AccountProjection';
 
 export class AccessTokenService {
   private static tokenName: string = 'accessToken';
+
   private static accountInfoName: string = 'accountInfo';
 
   public static setAccessToken(token: string) {
